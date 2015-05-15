@@ -49,8 +49,8 @@ public class CrfHiveTopology {
 
     HiveOptions hiveOptions = new HiveOptions(metaStoreURI,dbName,tblName,mapper);
     // Configuration for when running in secure mode
-     hiveOptions.withKerberosPrinicipal("hive/bil-hdp-app-01.prometric.qc2@HADOOP.PROMETRIC.QC2")
-                .withKerberosKeytab("/etc/security/keytab/hive.service.keytab");
+     hiveOptions.withKerberosPrinicipal("hive/bil-hdp-app-01.prometric.qc2@HADOOP.PROMETRIC.QC2");
+     hiveOptions.withKerberosKeytab("/etc/security/keytab/hive.service.keytab");
     HiveBolt hiveBolt = new HiveBolt(hiveOptions);
     return hiveBolt;
   }
