@@ -43,9 +43,9 @@ public class CrfHdfsTopology {
 
     Config cfg = new Config();
     // Configuration for when running in secure mode
-    // cfg.put("hdfs.keytab.file","/etc/security/keytabs/storm.service.keytab");
-    // cfg.put("hdfs.kerberos.principal","storm@HADOOP.PROMETRIC.QC2");
-    // cfg.put("topology.auto-credentials", "org.apache.storm.hdfs.common.security.AutoHDFS");
+    cfg.put("hdfs.keytab.file","/etc/security/keytabs/storm.service.keytab");
+    cfg.put("hdfs.kerberos.principal","storm@HADOOP.PROMETRIC.QC2");
+    cfg.put("topology.auto-credentials", "org.apache.storm.hdfs.common.security.AutoHDFS");
 
     StormSubmitter.submitTopology(TOPOLOGY_NAME, cfg, builder.createTopology());
   }
