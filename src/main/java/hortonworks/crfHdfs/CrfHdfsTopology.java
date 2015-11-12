@@ -11,7 +11,8 @@ import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.spout.SchemeAsMultiScheme;
 import storm.kafka.StringScheme;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.storm.hdfs.bolt.HdfsBolt;
 import org.apache.storm.hdfs.bolt.format.RecordFormat;
 import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
@@ -43,9 +44,13 @@ public class CrfHdfsTopology {
 
     Config cfg = new Config();
     // Configuration for when running in secure mode
-    cfg.put("hdfs.keytab.file","/etc/security/keytabs/storm.service.keytab");
-    cfg.put("hdfs.kerberos.principal","storm@HADOOP.PROMETRIC.QC2");
-    cfg.put("topology.auto-credentials", "org.apache.storm.hdfs.common.security.AutoHDFS");
+    //cfg.put("hdfs.keytab.file","/etc/security/keytabs/storm.service.keytab");
+    //cfg.put("hdfs.kerberos.principal","storm@HADOOP.PROMETRIC.QC2");
+    List<String> autoCreds= new ArrayList<String>();
+    //autoCreds.add("org.apache.storm.hdfs.common.security.AutoHDFS");
+    autoCreds.add("backtype.storm.security.auth.hadoop.AutoHDFS");
+    cfg.put(Config.TOPOLOGY_AUTO_CREDENTIALS, autoCreds);
+    // cfg.put(Config.TOPOLOGY_AUTO_CREDENTIALS, "org.apache.storm.hdfs.common.security.AutoHDFS");
 
     StormSubmitter.submitTopology(TOPOLOGY_NAME, cfg, builder.createTopology());
   }
